@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 50;
+            text-align: center;
+        }
+
+        .food-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .food-item img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: #f4f4f4;
+            color: #333;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/landingPage/admin/dashboard/new" class="btn">Add New Food Item</a>
+        <h2>Welcome, Chef! What's cooking?</h2>
+        <% foodItems.forEach(item => { %>
+            <div class="food-item">
+                <img src="<%= item.imageURL %>" alt="<%= item.name %>">
+                <h3><%= item.name %></h3>
+                <p>Price: $<%= item.price %></p>
+                <a href="/LandingPage/admin/dashboard/<%= item._id %>/edit" class="btn">Edit</a>
+                <a href="/LandingPage/admin/dashboard/<%= item._id %>/delete" class="btn" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
+            </div>
+        <% }) %>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <% if (page > 1) { %>
+                <a href="/LandingPage/admin/dashboard/<%= page - 1 %>" class="<%= page === 1 ? 'disabled' : '' %>">&laquo; Previous</a>
+            <% } %>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <a href="/LandingPage/admin/dashboard/<%= i %>" class="<%= i === page ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+            <% if (page < totalPages) { %>
+                <a href="/LandingPage/admin/dashboard/<%= page + 1 %>" class="<%= page === totalPages ? 'disabled' : '' %>">Next &raquo;</a>
+            <% } %>
+        </div>
+
+        <a href="/LandingPage" class="btn">Logout</a>
+    </div>
+</body>
+</html>
