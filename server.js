@@ -12,7 +12,7 @@ server.use(expressLayouts);
 
 // Routes
 const foodSiteRoute = require("./routes/site/foodItems");
-const adminSiteRoute = require("./routes/site/admin");
+const adminSiteRoute = require("./routes/apis/admin");
 const chefSiteRoute = require("./routes/site/chefs");
 
 // Middlewares
