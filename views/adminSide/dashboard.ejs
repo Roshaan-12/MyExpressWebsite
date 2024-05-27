@@ -69,12 +69,46 @@
             background-color: #4CAF50;
             color: white;
         }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .search-container input[type="submit"] {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="/landingPage/admin/dashboard/new" class="btn">Add New Food Item</a>
         <h2>Welcome, Chef! What's cooking?</h2>
+
+        <!-- Search form -->
+        <div class="search-container">
+            <form action="/landingPage/admin/dashboard/search" method="GET">
+                <input type="text" name="q" placeholder="Search for food items" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" required>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
         <% foodItems.forEach(item => { %>
             <div class="food-item">
                 <img src="<%= item.imageURL %>" alt="<%= item.name %>">
@@ -88,13 +122,13 @@
         <!-- Pagination -->
         <div class="pagination">
             <% if (page > 1) { %>
-                <a href="/LandingPage/admin/dashboard/<%= page - 1 %>" class="<%= page === 1 ? 'disabled' : '' %>">&laquo; Previous</a>
+                <a href="/LandingPage/admin/dashboard/search?q=<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>&page=<%= page - 1 %>" class="<%= page === 1 ? 'disabled' : '' %>">&laquo; Previous</a>
             <% } %>
             <% for (let i = 1; i <= totalPages; i++) { %>
-                <a href="/LandingPage/admin/dashboard/<%= i %>" class="<%= i === page ? 'active' : '' %>"><%= i %></a>
+                <a href="/LandingPage/admin/dashboard/search?q=<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>&page=<%= i %>" class="<%= i === page ? 'active' : '' %>"><%= i %></a>
             <% } %>
             <% if (page < totalPages) { %>
-                <a href="/LandingPage/admin/dashboard/<%= page + 1 %>" class="<%= page === totalPages ? 'disabled' : '' %>">Next &raquo;</a>
+                <a href="/LandingPage/admin/dashboard/search?q=<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>&page=<%= page + 1 %>" class="<%= page === totalPages ? 'disabled' : '' %>">Next &raquo;</a>
             <% } %>
         </div>
 
