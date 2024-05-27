@@ -67,6 +67,7 @@ router.get("/landingPage/admin/dashboard/:id/delete", checkAuthenticated, async 
 });
 
 router.get("/landingPage/admin/dashboard/:page?", checkAuthenticated, async (req, res) => {
+    console.log("Inside admin dashboard route");
     try {
         let page = Number(req.params.page) ? Number(req.params.page) : 1;
         let pageSize = 3;

@@ -21,7 +21,9 @@ router.post('/landingPage/admin', async (req, res) => {
             if (match) {
                 // Passwords match, set session and redirect to admin dashboard
                 req.session.adminId = admin._id;
+                console.log('Session created:', req.session);
                 res.redirect("/landingPage/admin/dashboard");
+                console.log("I am being redirected");
             } else {
                 // Passwords do not match, redirect to login page with error message
                 res.redirect('/landingPage/admin?error=true');

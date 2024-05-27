@@ -12,7 +12,7 @@ server.use(expressLayouts);
 
 // Routes
 const foodSiteRoute = require("./routes/site/foodItems");
-const adminSiteRoute = require("./routes/apis/admin");
+const adminSiteRoute = require("./routes/site/admin");
 const chefSiteRoute = require("./routes/site/chefs");
 
 // Middlewares
@@ -50,16 +50,16 @@ server.get("/landingPage", async (req, res) => {
     }
 });
 
-// Skip authentication for certain routes
-server.use(skipAuthForRoutes(['/landingPage','/landingPage/admin', '/landingPage/admin/register','/landingPage/reviews', '/landingPage/chefs']));
-
 // Routes
 server.use("/", foodSiteRoute);
 server.use("/", adminSiteRoute);
 server.use("/", chefSiteRoute);
 
+// Skip authentication for certain routes
+server.use(skipAuthForRoutes(['/landingPage','/landingPage/admin', '/landingPage/admin/register','/landingPage/reviews', '/landingPage/chefs']));
+
 // Database Connection
-mongoose.connect("mongodb://localhost:27017/fa21-bcs-b", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb://localhost:27017/fa21-bcs-b")
   .then(() => {
       console.log("DB Connected");
   })
